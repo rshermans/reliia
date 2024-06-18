@@ -1,40 +1,80 @@
-import altair as alt
-import numpy as np
-import pandas as pd
 import streamlit as st
 
-"""
-# Welcome to Streamlit!
+def montar_perfil():
+    st.title("RELIA")
+    st.header("Monte seu perfil")
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+    nome = st.text_input("Nome")
+    idade = st.text_input("Idade")
+    local = st.text_input("Local")
+    gostos = st.text_area("Gostos")
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+    aceitar = st.checkbox("Aceito compartilhar meus dados")
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+    if st.button("Próximo"):
+        if aceitar:
+            st.session_state["perfil"] = {
+                "nome": nome,
+                "idade": idade,
+                "local": local,
+                "gostos": gostos
+            }
+            st.success("Perfil salvo com sucesso!")
+            st.experimental_rerun()
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
+def escolher_obra():
+    st.header("Escolha da Obra e Autor")
+    
+    obra = st.text_input("Obra")
+    autor = st.text_input("Autor")
+    
+    if st.button("Próximo"):
+        st.session_state["obra"] = {
+            "obra": obra,
+            "autor": autor
+        }
+        st.success("Obra e autor salvos com sucesso!")
+        st.experimental_rerun()
 
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
+def resumo_e_acoes():
+    st.header("Resumo e Ações de Interesse")
+    
+    st.write(f"**Obra:** {st.session_state['obra']['obra']}")
+    st.write(f"**Autor:** {st.session_state['obra']['autor']}")
+    st.write("**Resumo:** Lorem ipsum dolor sit amet...")  # Exemplo de resumo
+    
+    st.subheader("Escolha as Ações de Interesse")
+    acoes = [
+        "Questões intrigantes",
+        "Contexto histórico",
+        "Impacto cultural",
+        "Relações e experiências humanas",
+        "Estilo de escrita",
+        "Mensagens e morais",
+        "Realidade contextual da época"
+    ]
+    
+    acoes_escolhidas = st.multiselect("Selecione as ações:", acoes)
+    
+    if st.button("Enviar"):
+        st.session_state["acoes"] = acoes_escolhidas
+        st.success("Ações salvas com sucesso!")
+        st.experimental_rerun()
 
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
+def interacao_llm():
+    st.header("Interação com LLM")
+    
+    pergunta = st.text_area("Pergunta o que quiser sobre a obra")
+    
+    if st.button("Consultar LLM"):
+        resposta = f"Resposta simulada para a pergunta: {pergunta}"  # Aqui seria a chamada real ao LLM
+        st.write(resposta)
 
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+if "perfil" not in st.session_state:
+    montar_perfil()
+elif "obra" not in st.session_state:
+    escolher_obra()
+elif "acoes" not in st.session_state:
+    resumo_e_acoes()
+else:
+    interacao_llm()
