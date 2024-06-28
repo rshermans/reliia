@@ -1,1 +1,28 @@
 .idea
+# Ignorar arquivos de configuração sensíveis
+.streamlit/secrets.toml
+
+# Ignorar arquivos de configuração do ambiente
+*.env
+
+# Ignorar pastas de compilação
+__pycache__/
+*.py[cod]
+
+# Ignorar logs
+*.log
+
+# Ignorar bancos de dados locais
+*.sqlite3
+*.db
+
+# Ignorar caches de Jupyter notebooks
+.ipynb_checkpoints/
+
+# Ignorar arquivos específicos de IDEs
+.vscode/
+.idea/
+
+# Ignorar pastas de virtualenv
+venv/
+env/
