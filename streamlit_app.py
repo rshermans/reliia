@@ -4,9 +4,17 @@ from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 from print_color import print
 import os
 import requests
+from dotenv import load_dotenv
+
 
 # Tenta obter a chave API dos segredos do Streamlit ou de variáveis de ambiente
-API_KEY = st.secrets["ANTHROPIC_API_KEY"]
+#API_KEY = st.secrets["ANTHROPIC_API_KEY"]
+
+# Carregar variáveis de ambiente do arquivo .env
+load_dotenv()
+
+# Obter a chave API das variáveis de ambiente
+API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 if not API_KEY:
     st.error("API Key não encontrada. Por favor, configure a chave API.")
@@ -82,7 +90,7 @@ def get_anthropic_response(prompt, max_tokens=1000):
 def tela_sidebar():
     with st.sidebar:
         st.header("RELIA")
-        st.image("images/logo_relia-removebg.png", width=None, use_column_width="auto")  # Substitua pelo caminho do logo
+        st.image("imagens/logo_relia-removebg.png", width=None, use_column_width="auto")  # Substitua pelo caminho do logo
 
         # Botões de Controle
         if st.button("🏠 Voltar ao Início"):
@@ -142,7 +150,7 @@ def tela_perfil():
     with st.container():
         col1, col2 = st.columns(2)
         with col1:
-            st.image("images/logo_relia-removebg.png")
+            st.image("imagens/logo_relia-removebg.png")
         with st.expander("Por que pedimos seu perfil?"):
             st.markdown("""
             <div class="expander-content">
@@ -183,7 +191,7 @@ def tela_obra():
     with st.container():
         col1, col2 = st.columns(2)
         with col1:
-            st.image("images/obra.jpg")
+            st.image("imagens/obra.jpg")
         with col2:
             st.header("Escolha a Obra e Autor")
             obra = st.text_input("Obra")
