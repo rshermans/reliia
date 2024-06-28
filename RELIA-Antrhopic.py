@@ -5,14 +5,16 @@ from print_color import print
 import os
 import requests
 
-# Tenta obter a chave API dos segredos do Streamlit ou de variáveis de ambiente
-API_KEY = st.secrets["ANTHROPIC_API_KEY"]
 
-if not API_KEY:
-    st.error("API Key não encontrada. Por favor, configure a chave API.")
-    st.stop()
+# Configuração da API Anthropic
+#anthropic = Anthropic(api_key="chave")
 
 API_URL = "https://api.anthropic.com/v1/messages"
+API_KEY = st.secrets["ANTHROPIC_API_KEY"]  # ou use uma variável de ambiente
+
+
+# Resto do código permanece o mesmo...
+
 
 # Banco de dados
 conn = sqlite3.connect('relia.db')
@@ -52,7 +54,7 @@ def obra_insert(obra, autor):
         print(f"Erro na inserção da obra: {e}", tag='failure', tag_color='red', color='magenta')
 
 
-# Função get_anthropic_response atualizada
+# Função para obter resposta da API do ANTHROPIC
 def get_anthropic_response(prompt, max_tokens=1000):
     try:
         headers = {
