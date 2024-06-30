@@ -49,6 +49,7 @@ def perfil_insert(nome, idade, cidade, gostos):
         #print("Novo perfil inserido", tag='success', tag_color='green', color='white')
     except Exception as e:
         #print(f"Erro na inserção do perfil: {e}", tag='failure', tag_color='red', color='magenta')
+        print(e)
 
 def obra_insert(obra, autor):
     sql_str = "INSERT INTO obras (obra, autor, profile_id) VALUES (?, ?, ?)"
@@ -58,7 +59,7 @@ def obra_insert(obra, autor):
         #print("Nova obra inserida", tag='success', tag_color='green', color='white')
     except Exception as e:
         #print(f"Erro na inserção da obra: {e}", tag='failure', tag_color='red', color='magenta')
-
+        print(e)
 
 # Função get_anthropic_response atualizada
 def get_anthropic_response(prompt, max_tokens=1000):
@@ -80,6 +81,7 @@ def get_anthropic_response(prompt, max_tokens=1000):
         #print(f"Erro ao obter resposta da API Anthropic: {e}")
         if e.response is not None:
             #print(f"Detalhes do erro: {e.response.text}")
+            print(e)
         return None
     
     
