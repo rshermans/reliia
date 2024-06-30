@@ -1,7 +1,7 @@
 import streamlit as st
 import sqlite3 
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
-#from print_color import print
+from print_color import print
 import os
 import requests
 from dotenv import load_dotenv
