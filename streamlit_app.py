@@ -1,7 +1,7 @@
 import streamlit as st
 import sqlite3 
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
-from print_color import print
+#from print_color import print
 import os
 import requests
 #from dotenv import load_dotenv
@@ -31,14 +31,14 @@ def setup():
     os.system('clear')
     try:
         conn.execute('CREATE TABLE IF NOT EXISTS perfis (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, idade INTEGER, cidade TEXT, gostos TEXT, opcao_compartilhar INTEGER)')
-        print("Tabela PERFIS criada", tag='success', tag_color='green', color='white')
+        #print("Tabela PERFIS criada", tag='success', tag_color='green', color='white')
         conn.execute('CREATE TABLE IF NOT EXISTS obras (id INTEGER PRIMARY KEY AUTOINCREMENT, obra TEXT, autor INTEGER, profile_id INTEGER)')
-        print("Tabela OBRAS criada", tag='success', tag_color='green', color='white')
+        #print("Tabela OBRAS criada", tag='success', tag_color='green', color='white')
         conn.execute('CREATE TABLE IF NOT EXISTS prompts (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, prompt TEXT)')
-        print("Tabela PROMPTS criada", tag='success', tag_color='green', color='white')
+        #print("Tabela PROMPTS criada", tag='success', tag_color='green', color='white')
         return 1
     except Exception as e:
-        print(f"Erro na criação de tabelas: {e}", tag='failure', tag_color='red', color='magenta')
+        #print(f"Erro na criação de tabelas: {e}", tag='failure', tag_color='red', color='magenta')
         return 0
 
 def perfil_insert(nome, idade, cidade, gostos):
@@ -46,18 +46,18 @@ def perfil_insert(nome, idade, cidade, gostos):
     try:
         conn.execute(sql_str, (nome, idade, cidade, gostos, 1))
         conn.commit()
-        print("Novo perfil inserido", tag='success', tag_color='green', color='white')
+        #print("Novo perfil inserido", tag='success', tag_color='green', color='white')
     except Exception as e:
-        print(f"Erro na inserção do perfil: {e}", tag='failure', tag_color='red', color='magenta')
+        #print(f"Erro na inserção do perfil: {e}", tag='failure', tag_color='red', color='magenta')
 
 def obra_insert(obra, autor):
     sql_str = "INSERT INTO obras (obra, autor, profile_id) VALUES (?, ?, ?)"
     try:
         conn.execute(sql_str, (obra, autor, 1))
         conn.commit()
-        print("Nova obra inserida", tag='success', tag_color='green', color='white')
+        #print("Nova obra inserida", tag='success', tag_color='green', color='white')
     except Exception as e:
-        print(f"Erro na inserção da obra: {e}", tag='failure', tag_color='red', color='magenta')
+        #print(f"Erro na inserção da obra: {e}", tag='failure', tag_color='red', color='magenta')
 
 
 # Função get_anthropic_response atualizada
@@ -77,9 +77,9 @@ def get_anthropic_response(prompt, max_tokens=1000):
         response.raise_for_status()
         return response.json()['content'][0]['text']
     except requests.exceptions.RequestException as e:
-        print(f"Erro ao obter resposta da API Anthropic: {e}")
+        #print(f"Erro ao obter resposta da API Anthropic: {e}")
         if e.response is not None:
-            print(f"Detalhes do erro: {e.response.text}")
+            #print(f"Detalhes do erro: {e.response.text}")
         return None
     
     
