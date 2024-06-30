@@ -4,17 +4,17 @@ from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 from print_color import print
 import os
 import requests
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 
 # Tenta obter a chave API dos segredos do Streamlit ou de variáveis de ambiente
-#API_KEY = st.secrets["ANTHROPIC_API_KEY"]
+API_KEY = st.secrets["ANTHROPIC_API_KEY"]
 
 # Carregar variáveis de ambiente do arquivo .env
-load_dotenv()
+#load_dotenv()
 
 # Obter a chave API das variáveis de ambiente
-API_KEY = os.getenv("ANTHROPIC_API_KEY")
+#API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 if not API_KEY:
     st.error("API Key não encontrada. Por favor, configure a chave API.")
