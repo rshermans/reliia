@@ -100,17 +100,6 @@ def tela_sidebar():
             st.session_state.clear()
             st.experimental_rerun()
 
-        if st.button("🚪 Sair"):
-            # Limpar a sessão e deslogar o usuário
-            st.session_state.clear()
-            st.experimental_rerun()
-
-        if st.button("🏁 Terminar Roteiro"):
-            # Limpar a sessão relacionada ao roteiro
-            for key in ["obra", "interesses", "messages"]:
-                if key in st.session_state:
-                    del st.session_state[key]
-            st.success("Roteiro concluído! Escolha outra obra para continuar explorando.")
 
 def tela_principal():
     st.title("RELIA")
